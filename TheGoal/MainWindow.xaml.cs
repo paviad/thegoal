@@ -166,12 +166,13 @@ namespace TheGoal
             BackgroundWorker bgw = new BackgroundWorker();
             bgw.DoWork += (s, e) =>
             {
+                int step = count / 100;
                 for (int j = 0; j < count; j++)
                 {
                     for (int i = 0; i < _Bowls.Count; i++)
                         ExecuteRoll(i);
-                    if (j % 100 == 0)
-                        bgw.ReportProgress(100 * j / count);
+                    if (j % step == 0)
+                        bgw.ReportProgress((int)(1.0 * j / count * 100.0));
                 }
             };
             bgw.RunWorkerCompleted += (s, e) =>

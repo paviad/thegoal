@@ -28,6 +28,8 @@
             <Button DockPanel.Dock="Top" Content="One Cycle" Command="{Binding RollAllCommand}" CommandParameter="1"/>
             <Button DockPanel.Dock="Top" Content="1000 Cycles" Command="{Binding RollAllCommand}" CommandParameter="1000"/>
             <Button DockPanel.Dock="Top" Content="100000 Cycles" Command="{Binding RollAllCommand}" CommandParameter="100000"/>
+            <Button DockPanel.Dock="Top" Content="1000000 Cycles" Command="{Binding RollAllCommand}" CommandParameter="1000000"/>
+            <Button DockPanel.Dock="Top" Content="10000000 Cycles" Command="{Binding RollAllCommand}" CommandParameter="10000000"/>
             <Button DockPanel.Dock="Top" Content="Reset" Command="{Binding ResetCommand}" CommandParameter="1000"/>
             <ProgressBar DockPanel.Dock="Bottom" Value="{Binding Progress}" Height="25"/>
             <StackPanel DockPanel.Dock="Top">

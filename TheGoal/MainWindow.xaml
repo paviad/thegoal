@@ -1,0 +1,53 @@
+﻿<Window x:Class="TheGoal.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <DockPanel>
+            <WrapPanel DockPanel.Dock="Top">
+                <TextBlock Text="Raw Materials -->"/>
+                <TextBlock Text="{Binding Bowls[0].Value}"/>
+                <TextBlock Text="-->"/>
+                <TextBlock Text="{Binding Bowls[1].Value}"/>
+                <TextBlock Text="-->"/>
+                <TextBlock Text="{Binding Bowls[2].Value}"/>
+                <TextBlock Text="-->"/>
+                <TextBlock Text="{Binding Bowls[3].Value}"/>
+                <TextBlock Text="-->"/>
+                <TextBlock Text="{Binding Bowls[4].Value}"/>
+                <TextBlock Text="-->"/>
+                <TextBlock Text="{Binding Bowls[5].Value}"/>
+                <TextBlock Text="-->"/>
+                <TextBlock Text="{Binding Bowls[6].Value}"/>
+                <TextBlock Text="-->"/>
+                <TextBlock Text="{Binding Bowls[7].Value}"/>
+                <TextBlock Text="-->"/>
+                <TextBlock Text="{Binding Bowls[8].Value}"/>
+                <TextBlock Text="(Sold)"/>
+            </WrapPanel>
+            <Button DockPanel.Dock="Top" Content="One Cycle" Command="{Binding RollAllCommand}" CommandParameter="1"/>
+            <Button DockPanel.Dock="Top" Content="1000 Cycles" Command="{Binding RollAllCommand}" CommandParameter="1000"/>
+            <Button DockPanel.Dock="Top" Content="100000 Cycles" Command="{Binding RollAllCommand}" CommandParameter="100000"/>
+            <Button DockPanel.Dock="Top" Content="Reset" Command="{Binding ResetCommand}" CommandParameter="1000"/>
+            <ProgressBar DockPanel.Dock="Bottom" Value="{Binding Progress}" Height="25"/>
+            <StackPanel DockPanel.Dock="Top">
+                <TextBlock>
+                    <Run Text="Cycles: "/>
+                    <Run Text="{Binding Cycles}"/>
+                </TextBlock>
+                <TextBlock>
+                    <Run Text="Inventory: "/>
+                    <Run Text="{Binding Inventory}"/>
+                </TextBlock>
+                <TextBlock>
+                    <Run Text="Throughput: "/>
+                    <Run Text="{Binding Throughput}"/>
+                </TextBlock>
+                <TextBlock>
+                    <Run Text="Profit: "/>
+                    <Run Text="{Binding Profit}"/>
+                </TextBlock>
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+</Window>

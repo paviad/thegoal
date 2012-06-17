@@ -31,6 +31,7 @@ namespace TheGoal
                 return _Bowls;
             }
         }
+        private BackgroundWorker worker;
         Random rnd = new Random();
 
         int _Inventory;
@@ -163,30 +164,36 @@ namespace TheGoal
         }
         void ExecuteRollAll(int count)
         {
-            BackgroundWorker bgw = new BackgroundWorker();
-            bgw.DoWork += (s, e) =>
+            worker = new BackgroundWorker();
+            worker.DoWork += (s, e) =>
             {
                 int step = count / 100;
                 for (int j = 0; j < count; j++)
                 {
+                    if (worker.CancellationPending)
+                    {
+                        //InhibitNotificationEvents(false);
+                        break;
+                    }
                     for (int i = 0; i < _Bowls.Count; i++)
                         ExecuteRoll(i);
                     if (j % step == 0)
-                        bgw.ReportProgress((int)(1.0 * j / count * 100.0));
+                        worker.ReportProgress((int)(1.0 * j / count * 100.0));
                 }
             };
-            bgw.RunWorkerCompleted += (s, e) =>
+            worker.RunWorkerCompleted += (s, e) =>
             {
                 Progress = 0;
                 InhibitNotificationEvents(false);
             };
-            bgw.WorkerReportsProgress = true;
-            bgw.ProgressChanged += (s, e) =>
+            worker.WorkerReportsProgress = true;
+            worker.WorkerSupportsCancellation = true;
+            worker.ProgressChanged += (s, e) =>
             {
                 Progress = e.ProgressPercentage;
             };
             InhibitNotificationEvents(true);
-            bgw.RunWorkerAsync();
+            worker.RunWorkerAsync();
         }
 
         private void InhibitNotificationEvents(bool inhibit)
@@ -194,6 +201,7 @@ namespace TheGoal
             NotificationInhibiter.IsNotificationInhibited = inhibit;
             RollAllCommand.RaiseCanExecuteChanged();
             ResetCommand.RaiseCanExecuteChanged();
+            CancelCommand.RaiseCanExecuteChanged();
             if (!inhibit)
             {
                 RaisePropertyChanged(this, x => x.Inventory);
@@ -222,6 +230,18 @@ namespace TheGoal
             Inventory = 0;
             Profit = 0;
             Throughput = 0;
+        }
+
+        public DelegateCommand<object> CancelCommand { get; set; }
+        void InitCancelCommand()
+        {
+            CancelCommand = new DelegateCommand<object>(
+                ExecuteCancel,
+                x => NotificationInhibiter.IsNotificationInhibited);
+        }
+        void ExecuteCancel(object parameter)
+        {
+            worker.CancelAsync();
         }
 
         private int Roll()

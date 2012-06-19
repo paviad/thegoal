@@ -1,0 +1,33 @@
+﻿<Window x:Class="TheGoal.ElementProperties"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ElementProperties" SizeToContent="WidthAndHeight">
+    <DockPanel>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
+            <Button IsDefault="True" Content="Ok" HorizontalAlignment="Right" Padding="5" Width="80" Margin="5" Click="Button_Click" />
+            <Button IsCancel="True" Content="Cancel" HorizontalAlignment="Left" Padding="5" Width="80" Margin="5"/>
+        </StackPanel>
+        <StackPanel>
+            <TextBlock>
+                <Run Text="Minimum Work: "/>
+                <InlineUIContainer BaselineAlignment="Center">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="+" Padding="2" Width="20" Command="{Binding AdjustValueCommand}" CommandParameter="MinUp"/>
+                        <Button Content="-" Padding="2" Width="20" Command="{Binding AdjustValueCommand}" CommandParameter="MinDown"/>
+                    </StackPanel>
+                </InlineUIContainer>
+            </TextBlock>
+            <TextBox Text="{Binding Minimum}"/>
+            <TextBlock>
+                <Run Text="Maximum Work: "/>
+                <InlineUIContainer BaselineAlignment="Center">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="+" Padding="2" Width="20" Command="{Binding AdjustValueCommand}" CommandParameter="MaxUp"/>
+                        <Button Content="-" Padding="2" Width="20" Command="{Binding AdjustValueCommand}" CommandParameter="MaxDown"/>
+                    </StackPanel>
+                </InlineUIContainer>
+            </TextBlock>
+            <TextBox Text="{Binding Maximum}"/>
+        </StackPanel>
+    </DockPanel>
+</Window>
